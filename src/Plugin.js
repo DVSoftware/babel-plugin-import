@@ -58,6 +58,9 @@ export default class Plugin {
       const path = winPath(
         this.customName ? this.customName(transformedMethodName) : join(this.libraryName, libraryDirectory, transformedMethodName, this.fileName) // eslint-disable-line
       );
+      const stylePath = winPath(
+        this.customName ? this.customName(transformedMethodName) : join(this.libraryName, libraryDirectory, transformedMethodName, this.stylePath) // eslint-disable-line
+      );
       this.selectedMethods[methodName] = addDefault(file.path, path, { nameHint: methodName });
       if (style === true) {
         addSideEffect(file.path, `${path}/${stylePath}`);
