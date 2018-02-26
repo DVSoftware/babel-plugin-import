@@ -56,16 +56,13 @@ export default class Plugin {
           ? camel2Dash(methodName)
           : methodName;
       const path = winPath(
-        this.customName ? this.customName(transformedMethodName) : join(this.libraryName, libraryDirectory, transformedMethodName, this.fileName) // eslint-disable-line
-      );
-      const stylePath = winPath(
-        this.customName ? this.customName(transformedMethodName) : join(this.libraryName, libraryDirectory, transformedMethodName, this.stylePath) // eslint-disable-line
+        this.customName ? this.customName(transformedMethodName) : join(this.libraryName, libraryDirectory, transformedMethodName, this.fileName, this.stylePath) // eslint-disable-line
       );
       this.selectedMethods[methodName] = addDefault(file.path, path, { nameHint: methodName });
       if (style === true) {
-        addSideEffect(file.path, `${path}/${stylePath}`);
+        addSideEffect(file.path, `${path}`);
       } else if (style === 'css') {
-        addSideEffect(file.path, `${path}/${stylePath}/css`);
+        addSideEffect(file.path, `${path}/css`);
       }
     }
     return this.selectedMethods[methodName];
