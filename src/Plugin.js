@@ -24,7 +24,8 @@ export default class Plugin {
     camel2UnderlineComponentName,
     fileName,
     customName,
-    types
+    types,
+    stylePath
   ) {
     this.specified = null;
     this.libraryObjs = null;
@@ -41,6 +42,7 @@ export default class Plugin {
     this.fileName = fileName || '';
     this.customName = customName;
     this.types = types;
+    this.stylePath = typeof stylePath === 'undefined' ? 'style' : stylePath
   }
 
   importMethod(methodName, file) {
@@ -58,9 +60,9 @@ export default class Plugin {
       );
       this.selectedMethods[methodName] = addDefault(file.path, path, { nameHint: methodName });
       if (style === true) {
-        addSideEffect(file.path, `${path}/style`);
+        addSideEffect(file.path, `${path}/${stylePath}`);
       } else if (style === 'css') {
-        addSideEffect(file.path, `${path}/style/css`);
+        addSideEffect(file.path, `${path}/${stylePath}/css`);
       }
     }
     return this.selectedMethods[methodName];
